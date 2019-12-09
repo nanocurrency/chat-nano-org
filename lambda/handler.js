@@ -37,8 +37,8 @@ module.exports.getInvite = async event => {
 
   const discordParams = {
     max_uses: 1,
+    max_age: 600, // 10 minutes
     unique: true,
-    expires: 600, // 10 minutes
   };
   const discordReq = await fetch(
     `https://discordapp.com/api/channels/${process.env.DISCORD_CHANNEL_ID}/invites`,
