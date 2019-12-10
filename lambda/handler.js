@@ -52,6 +52,13 @@ module.exports.getInvite = async event => {
     },
   );
   const discordRes = await discordReq.json();
+  if (discordReq.status < 200 || discordReq.status >= 400) {
+    return {
+      statusCode: 500,
+      body: `Discord returned error ${discordRes.code}: ${discordRes.message}`,
+      headers: { 'Content-Type': 'text/plain' },
+    };
+  }
   if (!discordRes.code) {
     return {
       statusCode: 500,
