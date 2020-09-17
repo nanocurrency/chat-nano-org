@@ -41,7 +41,7 @@ module.exports.getInvite = async event => {
     unique: true,
   };
   const discordReq = await fetch(
-    `https://discordapp.com/api/channels/${process.env.DISCORD_CHANNEL_ID}/invites`,
+    `https://discord.com/api/channels/${process.env.DISCORD_CHANNEL_ID}/invites`,
     {
       method: 'POST',
       body: JSON.stringify(discordParams),
