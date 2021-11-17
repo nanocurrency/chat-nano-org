@@ -21,9 +21,7 @@ h2 {
 
 .body {
   height: 100vh;
-  background-image: url('../images/HERO---BG.svg');
-  background-position: 100% 100%;
-  background-size: cover;
+  background-color: #20204c;
 }
 
 .header {
