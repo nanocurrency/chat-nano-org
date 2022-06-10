@@ -20,3 +20,4 @@ Requires AWS IAM User with sufficient permissions for various resources needed f
 - From AWS IAM User get `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` and set environment variables on local machine
 - Setup the serverless CLI https://serverless.com/framework/docs/providers/aws/guide/credentials/
 - Run `serverless deploy` from lambda directory
+- See 1Password > Infrastructure vault > Serverless.com - for a NF account on the Serverless platform
