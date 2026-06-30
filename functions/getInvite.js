@@ -38,7 +38,7 @@ export async function onRequestGet(context) {
     `https://discord.com/api/channels/${env.DISCORD_CHANNEL_ID}/invites`,
     {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bot ' + env.DISCORD_TOKEN },
+      headers: { 'Content-Type': 'application/json', 'Authorization': env.DISCORD_TOKEN },
       body: JSON.stringify({ max_uses: 1, max_age: 600, unique: true })
     }
   )
