@@ -20,6 +20,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Strip non-served files before upload
+        # `wrangler pages deploy .` uploads the entire root, and Cloudflare Pages
+        # serves a static asset in preference to a _redirects rule — so the only
+        # reliable way to keep the agent docs from being served is to not upload
+        # them. Removing them here (on the CI checkout only) leaves _redirects to
+        # turn /AGENTS.md and /CLAUDE.md into clean 301s.
+        run: rm -f AGENTS.md CLAUDE.md
       - name: Deploy to Cloudflare Pages
         id: deploy
         run: |

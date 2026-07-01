@@ -28,13 +28,18 @@ For the overall nano.org topology and the Cloudflare deploy token, see the
 ## Agent-doc policy — IMPORTANT (this repo is served from its root)
 
 `wrangler pages deploy .` uploads the **entire repo root**, so any root file is
-publicly fetchable. To keep agent docs from leaking:
+publicly fetchable. Cloudflare Pages serves a **static asset in preference to a
+`_redirects` rule**, so a redirect alone does *not* stop an uploaded file from
+being served (`.assetsignore` is a Workers-Assets feature and is not honored by
+`pages deploy` either). The reliable guard is therefore to **not upload them**:
 
-- **`_redirects`** sends `/AGENTS.md` and `/CLAUDE.md` to `/` (301). Cloudflare
-  applies `_redirects` before serving static assets and *always* follows them,
-  so the markdown is never served even though it is uploaded.
-- **`.assetsignore`** additionally asks Wrangler not to upload them.
+- **`.github/workflows/deploy.yml`** runs `rm -f AGENTS.md CLAUDE.md` on the CI
+  checkout right before `wrangler pages deploy .`, so the files are never part
+  of the deployment.
+- **`_redirects`** still lists `/AGENTS.md` and `/CLAUDE.md` → `/` (301). With
+  the assets removed at deploy, that redirect now actually fires (a request
+  returns a 301, not the markdown).
 
-If you add more agent material (e.g. a `docs/agents/` dir), add a matching
-`_redirects` line and verify with:
+If you add more agent material (e.g. a `docs/agents/` dir), add it to the
+`rm -f` list in the workflow **and** a matching `_redirects` line, then verify:
 `curl -sI https://chat.nano.org/AGENTS.md` → expect `301`, no markdown body.
