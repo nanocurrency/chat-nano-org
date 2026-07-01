@@ -1,0 +1,5 @@
+# Keep agent instruction files from being publicly served.
+# Cloudflare Pages applies _redirects before static assets and always follows
+# them, so these paths never return the underlying markdown. See AGENTS.md.
+/AGENTS.md / 301
+/CLAUDE.md / 301
