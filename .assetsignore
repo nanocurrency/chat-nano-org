@@ -1,0 +1,4 @@
+# Don't upload agent instruction files as public Pages assets.
+# (Belt-and-suspenders; _redirects is the guaranteed guard.)
+AGENTS.md
+CLAUDE.md
