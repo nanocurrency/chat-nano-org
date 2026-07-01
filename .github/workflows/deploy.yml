@@ -1,10 +1,10 @@
 name: Deploy to Cloudflare Pages
 
-# Production deploy on cloud-migration (retarget to main at cutover).
-# Every PR gets a full preview deployment with its own URL, posted as a comment.
+# Post-cutover: production deploy on push to main. Every PR gets a full preview
+# deployment with its own URL, posted as a comment.
 on:
   push:
-    branches: [cloud-migration]
+    branches: [main]
   pull_request:
 
 permissions:
