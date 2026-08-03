@@ -1,11 +1,11 @@
 // Cloudflare Pages Function — replaces the old AWS Lambda (lambda/handler.js).
 // Served same-origin at https://chat.nano.org/getInvite?captcha=<token>.
 //
-// Verifies the reCAPTCHA token, then creates a single-use (max 1 use, 10-min)
+// Verifies the Turnstile token, then creates a single-use (max 1 use, 10-min)
 // Discord invite and 302-redirects the visitor to it.
 //
 // Secrets are Cloudflare Pages environment variables (NOT baked into anything):
-//   RECAPTCHA_SECRET     reCAPTCHA secret key for chat.nano.org
+//   TURNSTILE_SECRET     Cloudflare Turnstile secret key for chat.nano.org
 //   DISCORD_TOKEN        Discord bot token (bot needs Create Invite permission)
 //   DISCORD_CHANNEL_ID   target channel id for invites
 const text = (body, status) =>
@@ -16,12 +16,12 @@ export async function onRequestGet(context) {
   const captcha = new URL(request.url).searchParams.get('captcha')
   if (!captcha) return text('No captcha specified.', 401)
 
-  // Verify reCAPTCHA
-  const captchaRes = await (await fetch('https://www.google.com/recaptcha/api/siteverify', {
+  // Verify Turnstile
+  const captchaRes = await (await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     body: new URLSearchParams({
-      secret: env.RECAPTCHA_SECRET,
+      secret: env.TURNSTILE_SECRET,
       response: captcha,
       remoteip: request.headers.get('CF-Connecting-IP') || ''
     })
