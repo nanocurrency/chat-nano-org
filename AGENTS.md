@@ -20,6 +20,15 @@ Task tracking is **beads** — run `bd prime` first.
 - Discord invite secrets are Cloudflare Pages env vars (set in the dashboard),
   not in git.
 
+## English-only / brand protection
+
+This page is English-only; readers use browser translate. Do not let
+**Nano**, **XNO**, or **Ӿ** be rewritten (Chrome turns Nano into Spanish
+**enano**). Mark those tokens `translate="no"` in visible HTML. Do **not**
+wrap the `Nano.org` domain button. Full rule and status of the other
+properties: [nano-org INFRA.md](https://github.com/nanocurrency/nano-org/blob/main/docs/agents/INFRA.md).
+Implementation leftover: bead `nano_site_move-9ns`.
+
 ## Infra
 
 For the overall nano.org topology and the Cloudflare deploy token, see the
